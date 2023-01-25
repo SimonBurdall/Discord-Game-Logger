@@ -38,11 +38,36 @@ def gbCheck(gameTitle):
 
             if responseGame.status_code == 200:
                 gameInfo = responseGame.json()
-                gameDeveloper = gameInfo['results']['developers'][0]['name']
-                gamePublisher = gameInfo['results']['publishers'][0]['name']
-                gameGenre = gameInfo['results']['genres'][0]['name']
+                gameDeveloper = gameInfo['results']['developers']
+                gamePublisher = gameInfo['results']['publishers']
+                gameGenre = gameInfo['results']['genres']
+                gamePlatform = gameInfo['results']['platforms']
                 gameReleaseYear = gameInfo['results']['original_release_date']
                 date_str_new = gameReleaseYear.split("-")
                 gameReleaseYear = date_str_new[2] + "/" + date_str_new[1] + "/" + date_str_new[0]
 
-                return gameTitle, gameDeveloper, gamePublisher, gameGenre, gameReleaseYear
+                # If multiple developers or publishers exist
+                if len(gameDeveloper) > 0:
+                    gameDeveloper = [dev['name'] for dev in gameDeveloper]
+                    gameDeveloper = ', '.join(gameDeveloper)
+                else:
+                    gameDeveloper = ''
+                    
+                if len(gamePublisher) > 0:
+                    gamePublisher = [pub['name'] for pub in gamePublisher]
+                    gamePublisher = ', '.join(gamePublisher)
+                else:
+                    gamePublisher = ''
+                    
+                if len(gameGenre) > 0:
+                    gameGenre = [gen['name'] for gen in gameGenre]
+                    gameGenre = ', '.join(gameGenre)
+                else:
+                    gameGenre = ''
+
+                if len(gamePlatform) == 1:
+                    gamePlatform = gamePlatform[0]['name']
+                else:
+                    gamePlatform = ''
+
+                return gameTitle, gameDeveloper, gamePublisher, gameGenre, gamePlatform, gameReleaseYear

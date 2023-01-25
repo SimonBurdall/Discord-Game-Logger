@@ -44,12 +44,10 @@ async def loop():
       endTime = currentTime.strftime('%d/%m/%Y %H:%M:%S')
       print(f"Title: {gameTitle}, End: {endTime}")
 
-      gameTitle, gameDeveloper, gamePublisher, gameGenre, gameReleaseYear = glGiantBomb.gbCheck(gameTitle)
-
-      glSheets.gameCheck(gameTitle, gameDeveloper, gamePublisher, gameGenre, gameReleaseYear, gameFirstPlayed)
+      gameTitle, gameDeveloper, gamePublisher, gameGenre, gamePlatform, gameReleaseYear = glGiantBomb.gbCheck(gameTitle)
+      glSheets.gameCheck(gameTitle, gameDeveloper, gamePublisher, gameGenre, gamePlatform, gameReleaseYear, gameFirstPlayed)
       
     else:
-      print("Nothing")
       pass
 
     time.sleep(10)
