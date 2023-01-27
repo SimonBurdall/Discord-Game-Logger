@@ -38,36 +38,52 @@ def gbCheck(gameTitle):
 
             if responseGame.status_code == 200:
                 gameInfo = responseGame.json()
-                gameDeveloper = gameInfo['results']['developers']
-                gamePublisher = gameInfo['results']['publishers']
-                gameGenre = gameInfo['results']['genres']
-                gamePlatform = gameInfo['results']['platforms']
-                gameReleaseYear = gameInfo['results']['original_release_date']
-                date_str_new = gameReleaseYear.split("-")
-                gameReleaseYear = date_str_new[2] + "/" + date_str_new[1] + "/" + date_str_new[0]
+                try:
+                    gameDeveloper = gameInfo['results']['developers']
+                except:
+                    gameDeveloper = None
+                try:
+                    gamePublisher = gameInfo['results']['publishers']
+                except:
+                    gamePublisher = None
+                try:
+                    gameGenre = gameInfo['results']['genres']
+                except:
+                    gameGenre = None
+                try:
+                    gamePlatform = gameInfo['results']['platforms']
+                except:
+                    gamePlatform = None
+                try:
+                    gameReleaseYear = gameInfo['results']['original_release_date']
+                    date_str_new = gameReleaseYear.split("-")
+                    gameReleaseYear = date_str_new[2] + "/" + date_str_new[1] + "/" + date_str_new[0]
+                except:
+                    gameReleaseYear = None
 
                 # If multiple developers or publishers exist
-                if len(gameDeveloper) > 0:
-                    gameDeveloper = [dev['name'] for dev in gameDeveloper]
-                    gameDeveloper = ', '.join(gameDeveloper)
-                else:
-                    gameDeveloper = ''
-                    
-                if len(gamePublisher) > 0:
-                    gamePublisher = [pub['name'] for pub in gamePublisher]
-                    gamePublisher = ', '.join(gamePublisher)
-                else:
-                    gamePublisher = ''
-                    
-                if len(gameGenre) > 0:
-                    gameGenre = [gen['name'] for gen in gameGenre]
-                    gameGenre = ', '.join(gameGenre)
-                else:
-                    gameGenre = ''
+                if gameDeveloper is not None:
+                    if len(gameDeveloper) > 0:
+                        gameDeveloper = [dev['name'] for dev in gameDeveloper]
+                        gameDeveloper = ', '.join(gameDeveloper)
+                    else:
+                        gameDeveloper = ''
+                if gamePublisher is not None:
+                    if len(gamePublisher) > 0:
+                        gamePublisher = [pub['name'] for pub in gamePublisher]
+                        gamePublisher = ', '.join(gamePublisher)
+                    else:
+                        gamePublisher = ''
+                if gameGenre is not None:
+                    if len(gameGenre) > 0:
+                        gameGenre = [gen['name'] for gen in gameGenre]
+                        gameGenre = ', '.join(gameGenre)
+                    else:
+                        gameGenre = ''
 
-                if len(gamePlatform) == 1:
-                    gamePlatform = gamePlatform[0]['name']
-                else:
-                    gamePlatform = ''
-
+                if gamePlatform is not None:
+                    if len(gamePlatform) == 1:
+                        gamePlatform = gamePlatform[0]['name']
+                    else:
+                        gamePlatform = ''
                 return gameTitle, gameDeveloper, gamePublisher, gameGenre, gamePlatform, gameReleaseYear

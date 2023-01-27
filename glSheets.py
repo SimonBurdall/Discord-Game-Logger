@@ -13,8 +13,8 @@ def gameCheck(gameTitle, gameDeveloper, gamePublisher, gameGenre, gamePlatform, 
     
     foundTitle = False
     
-    totalRows = sheet.row_count
-    gameSinceRelease = f'=DATEDIF(F{totalRows+1},G{totalRows+1},"y")&" years, "&DATEDIF(F{totalRows+1},G{totalRows+1},"ym")&" months, and "&DATEDIF(F{totalRows+1},G{totalRows+1},"md")&" days"'
+    totalRows = sheet.acell('A1').value
+    gameSinceRelease = f'=DATEDIF(F{totalRows},G{totalRows},"y")&" years, "&DATEDIF(F{totalRows},G{totalRows},"ym")&" months, and "&DATEDIF(F{totalRows},G{totalRows},"md")&" days"'
     
     for row in gameLog:
         if row['Title'] == gameTitle and row['First Release Date'] == gameReleaseYear:
