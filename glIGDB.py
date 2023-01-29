@@ -30,7 +30,7 @@ def gbCheck(searchGame):
     results = gameResponse.json()
 
     for gameResults in results:
-        if gameResults['name'] == searchGame:
+        if gameResults['name'].lower() == searchGame.lower():
             gameTitle = gameResults['name']
             platforms = gameResults['platforms']
             genres = gameResults['genres']

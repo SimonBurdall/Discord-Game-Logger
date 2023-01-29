@@ -7,7 +7,7 @@ creds = ServiceAccountCredentials.from_json_keyfile_name(config.sheetsJson, scop
 client = gspread.authorize(creds)
 sheet = client.open(config.sheetName).sheet1
 
-def gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameFirstPlayed):
+def gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gameFirstPlayed, gameCompletionDate, gameLastPlayed):
     gameLog = sheet.get_all_records()
     
     foundTitle = False
@@ -18,5 +18,5 @@ def gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameFirstPlay
             print(f'{gameTitle} already exists.')
             break
     if not foundTitle:
-        sheet.append_row([gameTitle, gamePlatform, gameGenre, gameReleaseYear, '', gameFirstPlayed,],value_input_option='USER_ENTERED')
+        sheet.append_row([gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gameFirstPlayed, gameCompletionDate, gameLastPlayed],value_input_option='USER_ENTERED')
         print(f'{gameTitle} added.')

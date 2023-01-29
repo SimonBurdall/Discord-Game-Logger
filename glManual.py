@@ -11,5 +11,9 @@ if not gameFirstPlayed:
 else:
     pass
 
+gameTime = ""
+gameCompletionDate = ""
+gameLastPlayed = ""
+
 gameTitle, gamePlatform, gameGenre, gameReleaseYear = glIGDB.gbCheck(gameSearch)
-glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameFirstPlayed)
+glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gameFirstPlayed, gameCompletionDate, gameLastPlayed)

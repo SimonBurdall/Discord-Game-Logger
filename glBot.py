@@ -17,6 +17,22 @@ async def on_ready():
   if not loop.is_running():
     loop.start()
 
+@bot.command()
+async def add(ctx, gameSearch: str):
+  gameTime = ""
+  gameCompletionDate = ""
+  gameLastPlayed = ""
+  
+  date = datetime.datetime.now()
+  gameFirstPlayed = date.strftime("%d/%m/%Y")
+
+  gameTitle, gamePlatform, gameGenre, gameReleaseYear = glIGDB.gbCheck(gameSearch)
+  glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gameFirstPlayed, gameCompletionDate, gameLastPlayed)
+  
+  embed = discord.Embed(title="You have added...", description=gameTitle, color=0x00ff00)
+  await ctx.message.delete()
+  await ctx.send(embed=embed)   
+
 @tasks.loop(seconds=1)
 async def loop():
   previousActivity = None
@@ -34,18 +50,22 @@ async def loop():
         startTime = convertTime.strftime('%d/%m/%Y %H:%M:%S')
         gameFirstPlayed = convertTime.strftime('%d/%m/%Y')
 
-        previousActivity = gameTitle
-        print(f"Title: {gameTitle}, Start: {startTime}")
+        previousActivity = gameSearch
+        print(f"Title: {gameSearch}, Start: {startTime}")
       else:
         pass
     elif rawOutput == None and rawOutput != previousActivity:
       previousActivity = None
       currentTime = datetime.datetime.now()
       endTime = currentTime.strftime('%d/%m/%Y %H:%M:%S')
-      print(f"Title: {gameTitle}, End: {endTime}")
+      print(f"Title: {gameSearch}, End: {endTime}")
+
+      gameTime = ""
+      gameCompletionDate = ""
+      gameLastPlayed = ""
 
       gameTitle, gamePlatform, gameGenre, gameReleaseYear = glIGDB.gbCheck(gameSearch)
-      glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameFirstPlayed)
+      glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gameFirstPlayed, gameCompletionDate, gameLastPlayed)
       
     else:
       pass
