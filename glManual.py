@@ -1,9 +1,7 @@
-import glSheets, glGiantBomb
+import glSheets, glIGDB
 import datetime
 
-
-
-gameTitle = input("Please enter a Game title: ")
+gameSearch = input("Please enter a Game title: ")
 
 gameFirstPlayed = input ("Please enter date First played, format DD/MM/YYYY, if not today: ")
 
@@ -13,5 +11,5 @@ if not gameFirstPlayed:
 else:
     pass
 
-gameTitle, gameDeveloper, gamePublisher, gameGenre, gamePlatform, gameReleaseYear = glGiantBomb.gbCheck(gameTitle)
-glSheets.gameCheck(gameTitle, gameDeveloper, gamePublisher, gameGenre, gamePlatform, gameReleaseYear, gameFirstPlayed)
+gameTitle, gamePlatform, gameGenre, gameReleaseYear = glIGDB.gbCheck(gameSearch)
+glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameFirstPlayed)

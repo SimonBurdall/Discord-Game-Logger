@@ -6,7 +6,7 @@ import datetime
 import discord
 from discord.ext import commands, tasks
 
-import glSheets, glGiantBomb
+import glSheets, glIGDB
 
 intents = discord.Intents().all()
 bot = commands.Bot(command_prefix='/', intents=intents)
@@ -21,14 +21,14 @@ async def on_ready():
 async def loop():
   previousActivity = None
   while True:
-    user = await bot.fetch_user(config.userID)
+    user = await bot.fetch_user(config.discordUser_id)
     mutual_guild = user.mutual_guilds[0]
     member = mutual_guild.members[0] 
     rawOutput = member.activity
 
     if rawOutput != None and rawOutput.type == discord.ActivityType.playing:
       if rawOutput.name != previousActivity:
-        gameTitle = rawOutput.name
+        gameSearch = rawOutput.name
         rawTime = rawOutput.start
         convertTime = datetime.datetime.fromtimestamp(rawTime.timestamp())
         startTime = convertTime.strftime('%d/%m/%Y %H:%M:%S')
@@ -44,12 +44,12 @@ async def loop():
       endTime = currentTime.strftime('%d/%m/%Y %H:%M:%S')
       print(f"Title: {gameTitle}, End: {endTime}")
 
-      gameTitle, gameDeveloper, gamePublisher, gameGenre, gamePlatform, gameReleaseYear = glGiantBomb.gbCheck(gameTitle)
-      glSheets.gameCheck(gameTitle, gameDeveloper, gamePublisher, gameGenre, gamePlatform, gameReleaseYear, gameFirstPlayed)
+      gameTitle, gamePlatform, gameGenre, gameReleaseYear = glIGDB.gbCheck(gameSearch)
+      glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameFirstPlayed)
       
     else:
       pass
 
     time.sleep(10)
 
-bot.run(config.discordKey)
+bot.run(config.discord_Key)
