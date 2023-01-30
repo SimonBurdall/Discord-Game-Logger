@@ -15,14 +15,14 @@ weighted_platforms = {
     "Gameboy Advance": 7,
     "PC (Microsoft Windows)":8,
     "Xbox": 10,
-    "DS": 11,
+    "Nintendo DS": 11,
     "Xbox 360": 13,
     "PlayStation 3": 11,
     "Wii": 9,
-    "3DS": 14,
+    "Nintendo 3DS": 14,
     "Xbox One": 16,
     "PlayStation 4": 17,
-    "Switch": 15,
+    "Nintendo Switch": 15,
     "Xbox Series X|S": 18,
     "PlayStation 5": 19
 }
