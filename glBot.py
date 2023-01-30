@@ -1,6 +1,5 @@
 #Config Keys
 import config
-import time
 import datetime
 
 import discord
@@ -18,20 +17,29 @@ async def on_ready():
     loop.start()
 
 @bot.command()
-async def add(ctx, gameSearch: str):
+async def log(ctx, gameSearch: str):
   gameTime = ""
   gameCompletionDate = ""
-  gameLastPlayed = ""
-  
+
   date = datetime.datetime.now()
   gameFirstPlayed = date.strftime("%d/%m/%Y")
+  gameLastPlayed = date.strftime("%d/%m/%Y")
 
-  gameTitle, gamePlatform, gameGenre, gameReleaseYear = glIGDB.gbCheck(gameSearch)
-  glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gameFirstPlayed, gameCompletionDate, gameLastPlayed)
-  
-  embed = discord.Embed(title="You have added...", description=gameTitle, color=0x00ff00)
+  gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameArtwork = glIGDB.gbCheck(gameSearch)
+  glSheetOutput = glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gameFirstPlayed, gameCompletionDate, gameLastPlayed)
+
+  if glSheetOutput == "added":
+    embed = discord.Embed(title="Logging: Added New Game", description=":turtle::turtle::turtle::turtle::turtle::turtle::turtle::turtle::turtle:", color=0x00ff00)
+    embed.add_field(name="**"+gameTitle+"**", value="Platform: "+gamePlatform+"\nRelease Date: "+str(gameReleaseYear)+"\nGenre: "+gameGenre+"\n\n First played on "+str(gameFirstPlayed), inline=False)
+    embed.add_field(name="",value=":video_game::video_game::video_game::video_game::video_game::video_game::video_game::video_game::video_game:")
+    embed.set_image(url="https:"+gameArtwork+"?width=1272&height=716")
+  elif glSheetOutput == "exists":
+    embed = discord.Embed(title="Logging: Updated Existing Game", description=":turtle::turtle::turtle::turtle::turtle::turtle::turtle::turtle::turtle:", color=0x00ff00)
+    embed.add_field(name="**"+gameTitle+"**", value="Platform: "+gamePlatform+"\nRelease Date: "+str(gameReleaseYear)+"\nGenre: "+gameGenre+"\n\n Updated last played on "+str(gameLastPlayed), inline=False)
+    embed.add_field(name="",value=":video_game::video_game::video_game::video_game::video_game::video_game::video_game::video_game::video_game:")
+    embed.set_image(url="https:"+gameArtwork+"?width=1272&height=716")
   await ctx.message.delete()
-  await ctx.send(embed=embed)   
+  await ctx.send(embed=embed)
 
 @tasks.loop(seconds=1)
 async def loop():
@@ -62,14 +70,14 @@ async def loop():
 
       gameTime = ""
       gameCompletionDate = ""
-      gameLastPlayed = ""
+      
+      date = datetime.datetime.now()
+      gameLastPlayed = date.strftime("%d/%m/%Y")
 
       gameTitle, gamePlatform, gameGenre, gameReleaseYear = glIGDB.gbCheck(gameSearch)
       glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gameFirstPlayed, gameCompletionDate, gameLastPlayed)
       
     else:
       pass
-
-    time.sleep(10)
 
 bot.run(config.discord_Key)

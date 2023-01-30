@@ -11,12 +11,17 @@ def gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gam
     gameLog = sheet.get_all_records()
     
     foundTitle = False
+    index = 0
+    glSheetOutput = ''
     
     for row in gameLog:
+        index = index + 1
         if row['Title'] == gameTitle and row['Platform'] == gamePlatform and row['Initial Release Date'] == gameReleaseYear:
             foundTitle = True
-            print(f'{gameTitle} already exists.')
-            break
+            sheet.update_cell(index+1, 8, gameLastPlayed)
+            glSheetOutput = 'exists'
+            return glSheetOutput
     if not foundTitle:
         sheet.append_row([gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gameFirstPlayed, gameCompletionDate, gameLastPlayed],value_input_option='USER_ENTERED')
-        print(f'{gameTitle} added.')
+        glSheetOutput = 'added'
+        return glSheetOutput

@@ -9,6 +9,7 @@ def gbCheck(searchGame):
     gameEndpoint = f"games/"
     platformEndpoint = f"platforms/"
     genreEndpoint = f"genres/"
+    artworkEndpoint = f"artworks/"
     gameTitle = ""
     gamePlatform = None
     gameGenre = ""
@@ -21,7 +22,7 @@ def gbCheck(searchGame):
         "Authorization": config.igbdAuth_token
     }
 
-    searchParams = {"search": searchGame, "fields": "name,platforms,genres,remasters,remakes,first_release_date,release_dates.human"}
+    searchParams = {"search": searchGame, "fields": "name,platforms,genres,remasters,remakes,first_release_date,release_dates.human,artworks"}
     idParams = {"fields": "name"}
 
     gameResponse = requests.get(url+gameEndpoint, headers=headers, params=searchParams)
@@ -40,14 +41,17 @@ def gbCheck(searchGame):
             current_date = datetime.datetime.now()
             days_diff = (current_date - input_date).days
 
-            for x in genres:
-                genres_response = requests.get(url+genreEndpoint+str(x), headers=headers, params=idParams)
+            if len(genres) > 1:
+                gameGenre = ""
+                for x in genres:
+                    genres_response = requests.get(url + genreEndpoint + str(x), headers=headers, params=idParams)
+                    genres_data = genres_response.json()
+                    gameGenre += genres_data[0]['name'] + ", "
+                gameGenre = gameGenre[:-2]
+            else:
+                genres_response = requests.get(url + genreEndpoint + str(genres[0]), headers=headers, params=idParams)
                 genres_data = genres_response.json()
-                for genre in genres_data:
-                    if len(genres_data) > 1:
-                        gameGenre += genre["name"] + ", "
-                    else:
-                        gameGenre = genre["name"]
+                gameGenre = genres_data[0]['name']
 
             for x in platforms:
                 platforms_response = requests.get(url+platformEndpoint+str(x), headers=headers, params=idParams)
@@ -69,8 +73,19 @@ def gbCheck(searchGame):
                         if weight > max_weight:
                             max_weight = weight
                             gamePlatform = platform_name
-
+                    else:
+                        gamePlatform = platform_name
+            
+        try:
+            artworks = gameResults['artworks']
+            for x in artworks:
+                artworks_response = requests.get(url + artworkEndpoint + str(x), headers=headers, params={"fields": "url"})
+                artworks_data = artworks_response.json()
+                for art in artworks_data:
+                    gameArtwork = art["url"]
+        except:
+            gameArtwork = "media.discordapp.net/attachments/995592727368568894/1069720253300478084/SimonSponge_screenshot_of_the_most_generic_video_game_ever._d95b1eb4-5ca0-4264-a4f6-0e0fccd38a74.png"
+    
         else:
             pass
-
-        return gameTitle, gamePlatform, gameGenre, gameReleaseYear
+    return gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameArtwork
