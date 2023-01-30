@@ -15,6 +15,10 @@ Then create a new Discord Server just for the bot, by click on the "+" symbol lo
 
 Finally, you will need to locate your Discord user ID, this is different to your Discord username. Navigate to the Discord settings and click on the "Appearance" section. Turn on the "Developer Mode" option. Right-click on your profile picture in a server and click on "Copy ID." Your Discord user ID will be copied to your clipboard, then paste this into the 'config.py' file next to the discordUser_id variable.
 
+## Google Sheets Setup
 
+You can find a template of the gameLog sheets at the link below, feel free to make a copy of the sheet.
+
+    https://docs.google.com/spreadsheets/d/1CPl108qohfMr5sUOJ6k_jnXtwMF4X7js1d38jUbCv0c/edit?usp=sharing
 
 Work instructions will be added soon.
