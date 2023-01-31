@@ -16,7 +16,7 @@ async def on_ready():
   if not loop.is_running():
     loop.start()
 
-@bot.command(name='log', help='Manually log a game you are playing.', aliases=['hi', 'hey'])
+@bot.command(name='log', help='Manually log a game you are playing.', aliases=['l', 'a'])
 async def log(ctx, gameSearch: str):
   gameTime = ""
   gameCompletionDate = ""
