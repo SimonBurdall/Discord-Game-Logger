@@ -83,6 +83,28 @@ Currently not implemented, will add at a later date.
 
 ## Game Platform Weighting
 
+        weighted_platforms = {
+                "Android": 1,
+                "Gameboy": 2,
+                "PlayStation": 3,
+                "Gameboy Color": 4,
+                "Dreamcast": 5,
+                "PlayStation 2": 6,
+                "Gameboy Advance": 7,
+                "PC (Microsoft Windows)":8,
+                "Xbox": 10,
+                "Nintendo DS": 11,
+                "Xbox 360": 13,
+                "PlayStation 3": 11,
+                "Wii": 9,
+                "Nintendo 3DS": 14,
+                "Xbox One": 16,
+                "PlayStation 4": 17,
+                "Nintendo Switch": 15,
+                "Xbox Series X|S": 18,
+                "PlayStation 5": 19
+        }
+
 The code above in the 'config.py' creates a dictionary named weighted_platforms that assigns a numerical value to each gaming console. The value represents the weight or importance assigned to each platform. The higher the value, the more likely the user is to play games on that platform.
 
 For example, in the code above, the Xbox Series X|S platform has been assigned the highest value of 18, indicating that the user is most likely to play games on that platform. On the other hand, the Android platform has been assigned the lowest value of 1, indicating that the user is least likely to play games on that platform.
