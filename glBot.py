@@ -1,4 +1,3 @@
-#Config Keys
 import config
 import datetime
 
@@ -9,6 +8,7 @@ import glSheets, glIGDB
 
 intents = discord.Intents().all()
 bot = commands.Bot(command_prefix='/', intents=intents)
+bot.allowed_dm_commands = True
 
 @bot.event
 async def on_ready():
@@ -16,7 +16,7 @@ async def on_ready():
   if not loop.is_running():
     loop.start()
 
-@bot.command()
+@bot.command(name='log', help='Manually log a game you are playing.', aliases=['hi', 'hey'])
 async def log(ctx, gameSearch: str):
   gameTime = ""
   gameCompletionDate = ""
@@ -25,7 +25,7 @@ async def log(ctx, gameSearch: str):
   gameFirstPlayed = date.strftime("%d/%m/%Y")
   gameLastPlayed = date.strftime("%d/%m/%Y")
 
-  gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameArtwork = glIGDB.gbCheck(gameSearch)
+  gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameArtwork, glIGDBOutput = glIGDB.gbCheck(gameSearch)
   glSheetOutput = glSheets.gameCheck(gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameTime, gameFirstPlayed, gameCompletionDate, gameLastPlayed)
 
   if glSheetOutput == "added":
@@ -38,7 +38,8 @@ async def log(ctx, gameSearch: str):
     embed.add_field(name="**"+gameTitle+"**", value="Platform: "+gamePlatform+"\nRelease Date: "+str(gameReleaseYear)+"\nGenre: "+gameGenre+"\n\n Updated last played on "+str(gameLastPlayed), inline=False)
     embed.add_field(name="",value=":video_game::video_game::video_game::video_game::video_game::video_game::video_game::video_game::video_game:")
     embed.set_image(url="https:"+gameArtwork+"?width=1272&height=716")
-  await ctx.message.delete()
+  if ctx.guild is not None:
+    await ctx.message.delete()
   await ctx.send(embed=embed)
 
 @tasks.loop(seconds=1)
@@ -79,5 +80,4 @@ async def loop():
       
     else:
       pass
-
 bot.run(config.discord_Key)

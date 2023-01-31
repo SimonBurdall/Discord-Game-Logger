@@ -10,12 +10,14 @@ def gbCheck(searchGame):
     platformEndpoint = f"platforms/"
     genreEndpoint = f"genres/"
     artworkEndpoint = f"artworks/"
+    
     gameTitle = ""
     gamePlatform = None
     gameGenre = ""
     gameReleaseYear = ""
+    gameArtwork = ""
     max_weight = 0
-
+    glIGDBOutput = "N"
 
     headers = {
         "client-id": config.igdbClient_id,
@@ -32,60 +34,77 @@ def gbCheck(searchGame):
 
     for gameResults in results:
         if gameResults['name'].lower() == searchGame.lower():
-            gameTitle = gameResults['name']
-            platforms = gameResults['platforms']
-            genres = gameResults['genres']
+            try:
+                gameTitle = gameResults['name']
+            except:
+                gameTitle = ""
 
-            gameReleaseYear = datetime.datetime.fromtimestamp(gameResults["first_release_date"]).strftime("%d/%m/%Y")
-            input_date = datetime.datetime.strptime(gameReleaseYear, "%d/%m/%Y")
-            current_date = datetime.datetime.now()
-            days_diff = (current_date - input_date).days
+            try:
+                gameReleaseYear = datetime.datetime.fromtimestamp(gameResults["first_release_date"]).strftime("%d/%m/%Y")
+                input_date = datetime.datetime.strptime(gameReleaseYear, "%d/%m/%Y")
+                current_date = datetime.datetime.now()
+                days_diff = (current_date - input_date).days
+            except:
+                gameReleaseYear = datetime.datetime.now()
 
-            if len(genres) > 1:
-                gameGenre = ""
-                for x in genres:
-                    genres_response = requests.get(url + genreEndpoint + str(x), headers=headers, params=idParams)
+            try:
+                genres = gameResults['genres']
+                if len(genres) > 1:
+                    gameGenre = ""
+                    for x in genres:
+                        genres_response = requests.get(url + genreEndpoint + str(x), headers=headers, params=idParams)
+                        genres_data = genres_response.json()
+                        gameGenre += genres_data[0]['name'] + ", "
+                    gameGenre = gameGenre[:-2]
+                    print(gameGenre)
+                else:
+                    genres_response = requests.get(url + genreEndpoint + str(genres[0]), headers=headers, params=idParams)
                     genres_data = genres_response.json()
-                    gameGenre += genres_data[0]['name'] + ", "
-                gameGenre = gameGenre[:-2]
-            else:
-                genres_response = requests.get(url + genreEndpoint + str(genres[0]), headers=headers, params=idParams)
-                genres_data = genres_response.json()
-                gameGenre = genres_data[0]['name']
+                    gameGenre = genres_data[0]['name']
+            except:
+                gameGenre = ""
 
-            for x in platforms:
-                platforms_response = requests.get(url+platformEndpoint+str(x), headers=headers, params=idParams)
-                platforms_data = platforms_response.json()
+            try:
+                platforms = gameResults['platforms']
+                for x in platforms:
+                    platforms_response = requests.get(url+platformEndpoint+str(x), headers=headers, params=idParams)
+                    platforms_data = platforms_response.json()
 
-                for platform in platforms_data:
-                    platform_name = platform["name"]
+                    for platform in platforms_data:
+                        platform_name = platform["name"]
 
-                    # Check if platform release is within three months of game release
-                    if days_diff <= 90:
-                        if platform_name in config.weighted_platforms:
+                        # Check if platform release is within three months of game release
+                        if days_diff <= 90:
+                            if platform_name in config.weighted_platforms:
+                                weight = config.weighted_platforms[platform_name]
+                                if weight > max_weight:
+                                    max_weight = weight
+                                    gamePlatform = platform_name
+                        # Check if game release is before console release
+                        elif platform_name in config.weighted_platforms:
                             weight = config.weighted_platforms[platform_name]
                             if weight > max_weight:
                                 max_weight = weight
                                 gamePlatform = platform_name
-                    # Check if game release is before console release
-                    elif platform_name in config.weighted_platforms:
-                        weight = config.weighted_platforms[platform_name]
-                        if weight > max_weight:
-                            max_weight = weight
-                            gamePlatform = platform_name
-                    else:
-                        gamePlatform = platform_name
-            
-        try:
-            artworks = gameResults['artworks']
-            for x in artworks:
-                artworks_response = requests.get(url + artworkEndpoint + str(x), headers=headers, params={"fields": "url"})
-                artworks_data = artworks_response.json()
-                for art in artworks_data:
-                    gameArtwork = art["url"]
-        except:
-            gameArtwork = "media.discordapp.net/attachments/995592727368568894/1069720253300478084/SimonSponge_screenshot_of_the_most_generic_video_game_ever._d95b1eb4-5ca0-4264-a4f6-0e0fccd38a74.png"
-    
+            except:
+                gamePlatform = ""
+
+            try:
+                artworks = gameResults['artworks']
+                for x in artworks:
+                    artworks_response = requests.get(url + artworkEndpoint + str(x), headers=headers, params={"fields": "url"})
+                    artworks_data = artworks_response.json()
+                    for art in artworks_data:
+                        gameArtwork = art["url"]
+            except:
+                gameArtwork = "media.discordapp.net/attachments/995592727368568894/1069720253300478084/SimonSponge_screenshot_of_the_most_generic_video_game_ever._d95b1eb4-5ca0-4264-a4f6-0e0fccd38a74.png"
+        
         else:
             pass
-    return gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameArtwork
+
+        if gameTitle == None:
+            glIGDBOutput = "N"
+        else:
+            glIGDBOutput = "Y"
+
+    return gameTitle, gamePlatform, gameGenre, gameReleaseYear, gameArtwork, glIGDBOutput
