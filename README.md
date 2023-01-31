@@ -35,4 +35,19 @@ You can find a template of the gameLog sheets at the link below, feel free to ma
 
     https://docs.google.com/spreadsheets/d/1CPl108qohfMr5sUOJ6k_jnXtwMF4X7js1d38jUbCv0c/edit?usp=sharing
 
+## Internet Gaming Database Setup
+
+1. Navigate to the following link, and follow the 'Get Started' guide to generate the API key. 
+
+        https://www.igdb.com/api
+        
+2. Once you have generated the API key, you should have an Client ID and a Access Token. Add the two the 'ćonfig.py'. Also, ensure that 'Bearer' is present in the string with a captailised 'B'. 
+
+        igdbClient_id = "[Client ID]"
+        igbdAuth_token = "Bearer [Access Token]"
+        
+## Toggle Setup
+
+Currently not implemented, will add at a later date.
+
 Work instructions will be added soon.
