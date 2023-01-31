@@ -36,7 +36,7 @@ Access a template of the Game-Log sheets at the following link and make a copy o
 
 1. Go to the Google API Console via the following link;
         
-                https://console.developers.google.com/
+        https://console.developers.google.com/
 
 2. Create a new project or select an existing project.
 
@@ -56,15 +56,15 @@ Access a template of the Game-Log sheets at the following link and make a copy o
 
 10. Install the Google API Client Library for Python by running the following command in your terminal or command prompt:
 
-                pip install --upgrade google-api-python-client
+        pip install --upgrade google-api-python-client
 
 11. Add the JSON file to the root of the bot´s directory, and add the name of the JSON file into the 'Config.py' as a string;
         
-                sheetsJson = "[File Name].json"
+        sheetsJson = "[File Name].json"
                 
 12. Add the name of your Google Sheets document to the 'Config.py' as a string;
 
-                sheetName = "[Google Sheets name]"
+        sheetName = "[Google Sheets name]"
 
 ## Internet Gaming Database Setup
 
