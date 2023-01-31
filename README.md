@@ -5,43 +5,38 @@ Unlock a whole new level of logging with this Discord bot! Keep track of all you
 
 ### Discord Setup | Installation and Bot Configuration
 
-1. First install Discord.py library by entering the following command in the command prompt or terminal.
-
+1. Install the Discord.py library by running the following command in the command prompt or terminal:
         pip install discord.py
 
-2. Next, create a Discord Bot Account by navigating to the Discord Developer Portal and sign in with your Discord account. Then select "Applications" section and then click on the "New Application" button. Give a name to your bot and click on the "Create" button.
+2. Create a Discord Bot Account on the Discord Developer Portal by signing in with your Discord account. Go to the "Applications" section and click on the "New Application." Give your bot a name and click "Create."
 
-3. Once created go to the "Bot" section and click on the "Add Bot" button. This will the generate a Discord token, copy this token and added it to the 'config.py' file next to the discord_key variable.
+3. In the "Bot" section, click "Add Bot" to generate a Discord token. Copy the token and paste it in the config.py file next to the discord_key variable.
     
         discord_Key = "[Discord Token]"
 
 ### Discord Setup | Application Setup and locating variables
 
-1. Then create a new Discord Server just for you and the bot. This will make it easier to interact with the Bot when logging games. 
+1. Create a new Discord server just for you and the bot to make it easier to interact with the bot during logging.
 
-2. Invite the bot to your newly created server by clicking on the server settings, then on the "Members" tab.
+2. Invite the bot to your server by clicking on the server settings, then the "Members" tab, and then the "Invite a member" button. Choose "Invite a bot," type the bot's name, select the appropriate permissions, and then click "Invite."
 
-3. Click the "Invite a member" button and then click "Invite a bot."
-
-4. Type the Bot's name, select the appropriate permissions, and then click "Invite."
-
-5. Finally, you will need to locate your Discord user ID, this is different to your Discord username. Navigate to the Discord settings and click on the "Appearance" section. Turn on the "Developer Mode" option. Right-click on your profile picture in a server and click on "Copy ID." Your Discord user ID will be copied to your clipboard, then paste this into the 'config.py' file next to the discordUser_id variable.
+3. To locate your Discord user ID, go to the Discord settings and click on the "Appearance" section. Turn on the "Developer Mode" option. Right-click on your profile picture in a server and click "Copy ID." Your Discord user ID will be copied to your clipboard. Paste this into the config.py file next to the discordUser_id variable.
 
         discordUser_id = [Discord User ID]
 
 ## Google Sheets Setup
 
-You can find a template of the gameLog sheets at the link below, feel free to make a copy of the sheet.
+Access a template of the Game-Log sheets at the following link and make a copy of it:
 
     https://docs.google.com/spreadsheets/d/1CPl108qohfMr5sUOJ6k_jnXtwMF4X7js1d38jUbCv0c/edit?usp=sharing
 
 ## Internet Gaming Database Setup
 
-1. Navigate to the following link, and follow the 'Get Started' guide to generate the API key. 
+1. Generate an API key by following the "Get Started" guide at the following link:
 
         https://www.igdb.com/api
         
-2. Once you have generated the API key, you should have an Client ID and a Access Token. Add the two the 'ćonfig.py'. Also, ensure that 'Bearer' is present in the string with a captailised 'B'. 
+2. Once you have generated the API key, you will receive a Client ID and Access Token. Add both to the config.py file, making sure "Bearer" is present in the string with a capital "B."
 
         igdbClient_id = "[Client ID]"
         igbdAuth_token = "Bearer [Access Token]"
@@ -52,6 +47,8 @@ Currently not implemented, will add at a later date.
 
 # Discord Bot commands
 
-Below is a list of bot commands that you can use within the server or via DM.
+Use the following commands within the server or via direct message (DM).
 
-/log    Manually add a game to the log.         Arguements: "[game title]"      Example: /log "Halo Infinite" 
+| Command  | Description | Argument  | Example |
+| ------------- | ------------- |------------- | ------------- |
+| /log  | Manually add a game to the log.  | "[game title]"  | /log "Halo Infinite"  |
