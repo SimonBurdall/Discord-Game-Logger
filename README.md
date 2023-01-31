@@ -25,7 +25,9 @@ Unlock a whole new level of logging with this Discord bot! Keep track of all you
 
 4. Type the Bot's name, select the appropriate permissions, and then click "Invite."
 
-Finally, you will need to locate your Discord user ID, this is different to your Discord username. Navigate to the Discord settings and click on the "Appearance" section. Turn on the "Developer Mode" option. Right-click on your profile picture in a server and click on "Copy ID." Your Discord user ID will be copied to your clipboard, then paste this into the 'config.py' file next to the discordUser_id variable.
+5. Finally, you will need to locate your Discord user ID, this is different to your Discord username. Navigate to the Discord settings and click on the "Appearance" section. Turn on the "Developer Mode" option. Right-click on your profile picture in a server and click on "Copy ID." Your Discord user ID will be copied to your clipboard, then paste this into the 'config.py' file next to the discordUser_id variable.
+
+    discordUser_id = [Discord User ID]
 
 ## Google Sheets Setup
 
