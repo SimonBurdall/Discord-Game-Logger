@@ -50,4 +50,8 @@ You can find a template of the gameLog sheets at the link below, feel free to ma
 
 Currently not implemented, will add at a later date.
 
-Work instructions will be added soon.
+# Discord Bot commands
+
+Below is a list of bot commands that you can use within the server or via DM.
+
+/log    Manually add a game to the log.         Arguements: "[game title]"      Example: /log "Halo Infinite" 
