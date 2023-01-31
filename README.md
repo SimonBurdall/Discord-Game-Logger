@@ -83,6 +83,11 @@ Currently not implemented, will add at a later date.
 
 ## Game Platform Weighting
 
+The code above in the 'config.py' creates a dictionary named weighted_platforms that assigns a numerical value to each gaming console. The value represents the weight or importance assigned to each platform. The higher the value, the more likely the user is to play games on that platform.
+
+For example, in the code above, the Xbox Series X|S platform has been assigned the highest value of 18, indicating that the user is most likely to play games on that platform. On the other hand, the Android platform has been assigned the lowest value of 1, indicating that the user is least likely to play games on that platform.
+
+This custom weighting can be used to make recommendations or sort games based on the user's preferred platform. The weighting can be adjusted based on the user's changing preferences over time.
 
 # Discord Bot commands
 
