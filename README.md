@@ -51,4 +51,4 @@ Use the following commands within the server or via direct message (DM).
 
 | Command  | Description | Argument  | Example |
 | ------------- | ------------- |------------- | ------------- |
-| /log  | Manually add a game to the log.  | "[game title]"  | /log "Halo Infinite"  |
+| /log  | Manually add a game to the log. The game will either be added to the log if it's not already in it, or its entry will be updated if it exists. | "[game title]"  | /log "Halo Infinite"  |
