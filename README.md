@@ -26,9 +26,45 @@ Unlock a whole new level of logging with this Discord bot! Keep track of all you
 
 ## Google Sheets Setup
 
+### Google Sheets Template
+
 Access a template of the Game-Log sheets at the following link and make a copy of it:
 
     https://docs.google.com/spreadsheets/d/1CPl108qohfMr5sUOJ6k_jnXtwMF4X7js1d38jUbCv0c/edit?usp=sharing
+
+### Google Sheets Setup
+
+1. Go to the Google API Console via the following link;
+        
+                https://console.developers.google.com/
+
+2. Create a new project or select an existing project.
+
+3. Enable the Google Sheets API by clicking on the "Enable APIs and Services" button.
+
+4. In the API Library, search for "Google Sheets API" and select it.
+
+5. Click the "Enable" button.
+
+6. In the API Console, go to the "Credentials" tab.
+
+7. Click the "Create credentials" button and select "Service account".
+
+8. Fill in the required information and click the "Create" button.
+
+9. Download the private key in JSON format and save it to a secure location.
+
+10. Install the Google API Client Library for Python by running the following command in your terminal or command prompt:
+
+                pip install --upgrade google-api-python-client
+
+11. Add the JSON file to the root of the bot´s directory, and add the name of the JSON file into the 'Config.py' as a string;
+        
+                sheetsJson = "[File Name].json"
+                
+12. Add the name of your Google Sheets document to the 'Config.py' as a string;
+
+                sheetName = "[Google Sheets name]"
 
 ## Internet Gaming Database Setup
 
@@ -44,6 +80,9 @@ Access a template of the Game-Log sheets at the following link and make a copy o
 ## Toggle Setup
 
 Currently not implemented, will add at a later date.
+
+## Game Platform Weighting
+
 
 # Discord Bot commands
 
