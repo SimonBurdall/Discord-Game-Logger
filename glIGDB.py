@@ -34,11 +34,8 @@ def gbCheck(searchGame):
 
     for gameResults in results:
         if gameResults['name'].lower() == searchGame.lower():
-            try:
-                gameTitle = gameResults['name']
-            except:
-                gameTitle = ""
-
+            gameTitle = gameResults['name']
+            
             try:
                 gameReleaseYear = datetime.datetime.fromtimestamp(gameResults["first_release_date"]).strftime("%d/%m/%Y")
                 input_date = datetime.datetime.strptime(gameReleaseYear, "%d/%m/%Y")
